@@ -6,5 +6,6 @@ router.use("/users", require("./users"));
 router.use("/donators", require("./donators"));
 router.use("/auth", require("./auth"));
 router.use("/openai", require("./openai"));
+router.use("/prompts", require("./prompts"));
 
 module.exports = router;

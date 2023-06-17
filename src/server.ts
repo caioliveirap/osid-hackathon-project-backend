@@ -1,6 +1,10 @@
 import express from "express";
 require("dotenv").config();
+const MongoClient = require("mongodb").MongoClient;
 
+MongoClient.connect(process.env.MONGODB_URI, (err: any, client: any) => {
+  console.log("db connected");
+});
 const app = express();
 
 app.use(express.json({ limit: "100mb" }));

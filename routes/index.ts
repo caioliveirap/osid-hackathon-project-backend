@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 /* GET home page. */
-router.use("/user", require("./user"));
+router.use("/users", require("./users"));
 
 module.exports = router;

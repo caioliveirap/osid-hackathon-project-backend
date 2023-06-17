@@ -25,6 +25,7 @@
     "firebase": "^9.22.2",
     "firebase-admin": "^11.9.0",
     "mongoose": "^7.3.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "openai": "^3.3.0"
   }
 }

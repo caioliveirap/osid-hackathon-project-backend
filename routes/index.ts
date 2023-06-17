@@ -5,5 +5,6 @@ const router = Router();
 router.use("/users", require("./users"));
 router.use("/donators", require("./donators"));
 router.use("/auth", require("./auth"));
+router.use("/openai", require("./openai"));
 
 module.exports = router;

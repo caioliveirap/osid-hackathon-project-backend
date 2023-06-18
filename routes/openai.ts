@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Donator from "../model/donator";
+import Campaing from "../model/campaigns";
 const router = Router();
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -12,7 +13,7 @@ const openai = new OpenAIApi(config);
 router.post("/run-prompt", async (req, res) => {
   try {
     const prompt = req.body.prompt;
-
+    const goal = req.body.campaingn;
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
@@ -22,8 +23,12 @@ router.post("/run-prompt", async (req, res) => {
         },
       ],
     });
-    console.log(response);
 
+    const save = new Campaing({
+      message: response.data.choices[0].message.content,
+      goal: goal,
+    });
+    save.save();
     res.status(200).json({ success: true, data: response.data });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });

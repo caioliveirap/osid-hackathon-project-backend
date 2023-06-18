@@ -2,8 +2,26 @@ import express from "express";
 require("dotenv").config();
 const mongoose = require("mongoose");
 const admin = require("firebase-admin");
-const credentials = require("../serviceAccountKey.json");
+// const credentials = require("../serviceAccountKey.json");
+
 var cors = require("cors");
+
+const credentials = {
+  type: "service_account",
+  project_id: "osid-hackathon",
+  private_key_id: "c829aab7e8148e43d720456e8b745fd8f25a51ff",
+  private_key:
+    "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCm4O5JXL11brq5\nTw1U0ktzG7PwQZkE6r+YU8nforp1akvK4KU0+ZC4JhtuiBTD2t6KpGXp+YbYhVAh\ntde8Ab4V/XEtopAQ3V2cFuexdAIyMeORLFnMNda+WwuxSzBWpuO+xrzXjSs5csdy\nfhWXkfavLDBLw1R9cVCV0hDw3LUr5+HVwkOdIkoqJxDAlnbDSim17jWAInhZxArA\nCWHJmwf6DkXxqEAZuNringstFd8dV4z1n33XrSlNK3XswWEAliIQfbz9yfNSWkPl\nnl8+BRXsS+hu2T/GAI+JfQvjbM+4DTwf6Piz50AQrZvA3N1sl2sCL/X0yyDvEDnw\nZvvjkITvAgMBAAECggEAF1nhLhXSkwSgDz8fE+/rS9ukBaoAMf5xOez7khYQtk5d\n9bESnQOQ+xul+gUDttZBDrBrbF6UvmaFLHpoCjBKO4R/2k1lkF6Rcz6HRD8B8akm\neVF17UvZVUCjNbdaN73Zn3/qu9TOqBbGDuDSv6dWl/N8fJWEFJuPFa/T3AheN5rc\nVkxSZ5gpTUWt+IKx7aqm9BYNEkqHFd5yW8s9eM2hALDzEvQv17DRCGAz3v7Use2u\nTBmd7qQqHCtbAHpRJwn+7SrXAIxZTccCDkaOlUFZR/OGbDHovxx0puCurddQ7w3O\ntjmGzoAgtmvVLGym6ZDG2ssv3maHvGysbaiC317MJQKBgQDjJtPl+NLnLnaXPjKo\n8Fqv043HGFmXxBUXhNukzcacsHEJVChRkeH/1/WyEQd0LJlx/E0BG1sOaZT7pVIl\n7ZgFUFHvxcOHalZPKyzsG7x6jGCO6Ir/goaI7xmooacvKJujKzi7AJNLCIvFIxUa\nGQ1EF4ED9mYCXpQyqOg1rd1ntQKBgQC8EoBqH1ikwREuc/PvFtoTUNMaqbuF6u/O\nQA+m2G4SbFtDytA8lgeo6e8X4RfKxHU9RjtqAtGhZBklUpPvpndyy8M5nkUm6M1m\nS4RzQ8jENPLczjiP7yNTmVUCdXxa4vl0jY/CpdUlBG6eGBHJJ5TN1gnjyEFpWf7q\nMifJ1AEYkwKBgQDXK3CN56XgV6L+oWxbm1JMO5mRfv9fQ9626KMm+cWpp3lr3MxU\neFwcffW/N2JYKecwkk5fPgqDHICD35ZxVx8p6Wu0NSGCpLgdRkjHX36ql07gEGea\noYnPLK6hjn9PrKfBaK/UdDcSXIYJt7HFhvWKCrmrhzwaAn1ff6B3OLsCAQKBgBit\n9Nv4MRGtpCuMW75MKWHPgWRGUa1JHx7ZmTQzwn34aiGDQ8Avj+HCkPV5PD4HebsI\ntFM8+3VKRWJ4a6FPHu2Zf4zYEAsDEbESx9a4Vmgo6pW/Gf0JTIFz5YvlDuR+VG3P\nBcZtLIMnCb0FO5BB+WzpYXLanHrOrHzfCAmcIGixAoGBAOHIbGaUmTLamswM3nns\nbwwCbCrdikZdwEqIvvQL7ZWAXXFmX9Oxm/3FYw7tpAXXvQbyeMnwK2qyEptzzDmg\nhGWyNM93OgaQYa+Kb4ySeUWRInelRJeIS+6SRIhpYWVTR2MrAlJKGkA+TqULjGH3\n68adIliqR0sMpxD/FsdvfjuN\n-----END PRIVATE KEY-----\n",
+  client_email:
+    "firebase-adminsdk-5umes@osid-hackathon.iam.gserviceaccount.com",
+  client_id: "107317147841693020427",
+  auth_uri: "https://accounts.google.com/o/oauth2/auth",
+  token_uri: "https://oauth2.googleapis.com/token",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  client_x509_cert_url:
+    "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-5umes%40osid-hackathon.iam.gserviceaccount.com",
+  universe_domain: "googleapis.com",
+};
 
 admin.initializeApp({
   credential: admin.credential.cert(credentials),

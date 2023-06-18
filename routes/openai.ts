@@ -5,7 +5,7 @@ const router = Router();
 const { Configuration, OpenAIApi } = require("openai");
 
 const config = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.OPENAIA_API_KEY,
 });
 
 const openai = new OpenAIApi(config);

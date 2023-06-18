@@ -1,15 +1,16 @@
 import { Router } from "express";
 import Donator from "../model/donator";
+import Donations from "../model/donations";
 const router = Router();
 
-// router.get("/list", async (req, res) => {
-//   try {
-//     const list = await Donator.find().exec();
-//     res.status(200).json({ success: true, data: list });
-//   } catch (error: any) {
-//     res.status(400).send({ error: error.message, success: false });
-//   }
-// });
+router.get("/list", async (req, res) => {
+  try {
+    const list = await Donations.find().exec();
+    res.status(200).json({ success: true, data: list });
+  } catch (error: any) {
+    res.status(400).send({ error: error.message, success: false });
+  }
+});
 
 // router.get("/list-by-id/:id", async (req, res) => {
 //   try {
@@ -24,18 +25,18 @@ const router = Router();
 router.post("/create-new", async (req, res) => {
   try {
     // const donator = await new Donator(req.body);
-    const checkDonatorExistance = await Donator.findOne({
-      document: req.body.donator.document,
-    });
-    console.log(req.body);
-    if (!checkDonatorExistance) {
-      const newDonator = new Donator(req.body.donator);
-      await newDonator.save();
-    }
-    // console.log(checkDonatorExistance);
 
-    // const save = await dona~tor.save(donator);
-    res.status(200).json({ success: true, data: checkDonatorExistance });
+    // const checkDonatorExistance = await Donator.findOne({
+    //   document: req.body.donator.document,
+    // });
+    // console.log(req.body);
+    // if (!checkDonatorExistance) {
+    //   const newDonator = new Donator(req.body.donator);
+    //   await newDonator.save();
+    // }
+    const newDonation = new Donations(req.body.donation);
+    const save = await newDonation.save();
+    res.status(200).json({ success: true, data: save });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });
   }

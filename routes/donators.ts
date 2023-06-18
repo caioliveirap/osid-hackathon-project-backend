@@ -23,6 +23,9 @@ router.get("/list-by-id/:id", async (req, res) => {
 
 router.post("/create-new", async (req, res) => {
   try {
+    if (req.body.donator_type === "natural_person") {
+      req.body.donator_type = "Pessoa física";
+    }
     const donator = await new Donator(req.body);
     const save = await donator.save(donator);
     res.status(200).json({ success: true, data: save });

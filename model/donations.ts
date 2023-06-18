@@ -1,15 +1,17 @@
 import { model, models, Schema } from "mongoose";
 
-const donatorSchema = new Schema(
+const donationSchema = new Schema(
   {
-    name: String,
     type: String,
-    amount: Number,
-    donator_id: String,
+    origin: String,
+    donator_type: String,
+    resource: String,
+    description: String,
+    resource_details: String,
   },
   { timestamps: true }
 );
 
-const Donator = models.Donator || model("Donator", donatorSchema);
+const Donations = models.Donations || model("Donations", donationSchema);
 
-export default Donator;
+export default Donations;

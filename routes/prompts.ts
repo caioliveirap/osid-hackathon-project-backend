@@ -1,10 +1,11 @@
 import { Router } from "express";
 import Donator from "../model/donator";
+import Prompts from "../model/prompts";
 const router = Router();
 
 router.get("/list", async (req, res) => {
   try {
-    const list = await Donator.find().exec();
+    const list = await Prompts.find().exec();
     res.status(200).json({ success: true, data: list });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });
@@ -14,7 +15,7 @@ router.get("/list", async (req, res) => {
 router.get("/list-by-id/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const list = await Donator.findById(id);
+    const list = await Prompts.findById(id);
     res.status(200).json({ success: true, data: list });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });
@@ -23,11 +24,8 @@ router.get("/list-by-id/:id", async (req, res) => {
 
 router.post("/create-new", async (req, res) => {
   try {
-    if (req.body.donator_type === "natural_person") {
-      req.body.donator_type = "Pessoa física";
-    }
-    const donator = await new Donator(req.body);
-    const save = await donator.save(donator);
+    const prompt = await new Prompts(req.body);
+    const save = await prompt.save(prompt);
     res.status(200).json({ success: true, data: save });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });
@@ -35,11 +33,11 @@ router.post("/create-new", async (req, res) => {
 });
 
 //PUT replaces all the existing data
-router.put("/update-donator/:id", async (req, res) => {
+router.put("/update-prompt/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const update = await Donator.findOneAndUpdate({ _id: id }, data);
+    const update = await Prompts.findOneAndUpdate({ _id: id }, data);
     res.status(200).json({ success: true, data: update });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });
@@ -51,7 +49,7 @@ router.patch("/update-field/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const update = await Donator.findOneAndUpdate({ _id: id }, { $set: data });
+    const update = await Prompts.findOneAndUpdate({ _id: id }, { $set: data });
     res.status(200).json({ success: true, data: update });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });
@@ -62,9 +60,9 @@ router.patch("/update-field/:id", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteDonator = await Donator.findByIdAndDelete({ _id: id }).exec();
-
-    res.status(200).json({ success: true, data: deleteDonator });
+    const data = req.body;
+    const deletePrompt = await Prompts.findByIdAndDelete({ _id: id }).exec();
+    res.status(200).json({ success: true, data: deletePrompt });
   } catch (error: any) {
     res.status(400).send({ error: error.message, success: false });
   }

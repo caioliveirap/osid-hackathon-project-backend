@@ -7,7 +7,7 @@ const donationSchema = new Schema(
     donator_type: String,
     resource: String,
     description: String,
-    resource_details: String,
+    resource_details: Object,
   },
   { timestamps: true }
 );

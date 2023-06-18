@@ -3,6 +3,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const admin = require("firebase-admin");
 const credentials = require("../serviceAccountKey.json");
+var cors = require("cors");
 
 admin.initializeApp({
   credential: admin.credential.cert(credentials),
@@ -18,6 +19,7 @@ mongoose
 const app = express();
 
 app.use(express.json({ limit: "100mb" }));
+app.use(cors());
 
 app.use("/", require("../routes/index"));
 
